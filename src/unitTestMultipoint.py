@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import time 
 from datatypes import Point
+
 # fungsi membuat list titik kurva bezier kuadratik
 def generate_quadratic_bezier(P0, P1, P2, iterations):
     if iterations == 0:

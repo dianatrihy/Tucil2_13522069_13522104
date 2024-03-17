@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import time
 from quadraticBezierBF import quadraticBezierBF
 from quadraticBezierDnC import quadraticBezierDnC
@@ -29,23 +28,27 @@ def plot_curve(curve_method):
     # Menghitung waktu yang diperlukan untuk pembentukan kurva
     end_time = time.time() 
     elapsed_time = end_time - start_time
-    
-    # Menampilkan kurva Bézier dan titik kontrolnya
-    curve_points = np.array(curve_points)
-    plt.plot(curve_points[:, 0], curve_points[:, 1])
-    plt.scatter(curve_points[:, 0], curve_points[:, 1], color='blue', s=5, zorder=5)
 
     # Menampilkan titik awal input
-    x_points = [point[0] for point in points]
-    y_points = [point[1] for point in points]
-    plt.scatter(x_points, y_points, color='red', zorder=5)
+    x_points = [point.x for point in points]
+    y_points = [point.y for point in points]
+    plt.scatter(x_points, y_points, color='darkred', zorder=5)
     plt.plot(x_points, y_points, color='red', linestyle='dashed')
+    
+    # Menampilkan kurva Bézier dan titik kontrolnya
+    x_curve = [point.x for point in curve_points]
+    y_curve = [point.y for point in curve_points]
+    plt.plot(x_curve, y_curve, color='royalblue')
+    plt.scatter(x_curve, y_curve, color='blue', s=8, zorder=5)
 
     plt.xlabel('X-axis')
     plt.ylabel('Y-axis')
     
     # Menampilkan judul plot dan waktu yang diperlukan untuk pembentukan kurva
-    plt.title(f'Quadratic Bézier Curve with {bezier_curve.iterations} Iteration {curve_method}')
+    if curve_method == 'Divide and Conquer with Multipoint':
+        plt.title(f'Bézier Curve with {bezier_curve.iterations} Iteration {curve_method}')
+    else:
+        plt.title(f'Quadratic Bézier Curve with {bezier_curve.iterations} Iteration {curve_method}')
     plt.text(0.5, 0.05, 'Elapsed time: {:.4e} seconds'.format(elapsed_time), horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
 
     # Menampilkan grid

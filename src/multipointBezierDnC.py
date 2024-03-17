@@ -1,10 +1,11 @@
+import matplotlib.pyplot as plt
 from datatypes import Point
 
 # Definisikan kelas multipointBezierDnC
 class multipointBezierDnC:
     # Inisialisasi atribut dari objek multipointBezierDnC
     def __init__(self, points, iterations):
-        self.points = [Point(p[0], p[1]) for p in points] # List of Point
+        self.points = points # List of Point
         self.iterations = iterations # integer
         self.elapsed_time = 0.0
 
@@ -24,22 +25,28 @@ class multipointBezierDnC:
             new_points.append(self.find_center_point(listpoints[i], listpoints[i+1]))
 
         return new_points # List of Point
+    
+    def visualization_step(self, new_points):
+        x_points = [point.x for point in new_points]
+        y_points = [point.y for point in new_points]
+        plt.scatter(x_points, y_points, color='orange', s=5.5, zorder=5)
+        plt.plot(x_points, y_points, color='gold', linestyle='dashed')
 
     # Fungsi membuat list titik-titik hasil generate kurava bezier 
     def bezier_multipoint(self, listpoints, iterations):
         n = len(listpoints)
 
-        # Jika sudah tidak dilakukan lagi iterasi, kembalikan titik awal dan titik akhir dari list
+        # (Solve/Conquer) Jika sudah tidak dilakukan lagi iterasi, kembalikan titik awal dan akhir
         if iterations == 0:
             return [listpoints[0], listpoints[n-1]]
 
-        # Memasukkan titik awal pada bagian kiri dan titik akhir pada bagian kanan (list titik yang akan digunakan untuk iterasi selanjutnya)
+        # (pre-Divide) Memasukkan titik awal pada bagian kiri dan titik akhir pada bagian kanan (list titik yang akan digunakan untuk iterasi selanjutnya)
         left_points = []
         left_points.append(listpoints[0])
         right_points = []
         right_points.append(listpoints[n-1])
 
-        # Mencari titik tengah dari listpoint serta memasukkan ke bagian kiri dan kanan untuk titik-titik yang diperlukan untuk iterasi selanjutnya
+        # (pre-Divide) Mencari titik tengah dari listpoint serta memasukkan ke bagian kiri dan kanan untuk titik-titik yang diperlukan untuk iterasi selanjutnya
         # Titik yang diperlukan untuk iterasi selanjutnya adalah titik paling awal dan titik paling akhir pada list new_points
         new_points = self.list_center_point(listpoints)
         left_points.append(new_points[0])
@@ -47,22 +54,26 @@ class multipointBezierDnC:
             right_points.insert(0, new_points[0])
         else:
             right_points.insert(0, new_points[len(new_points)-1])
+        
+        self.visualization_step(new_points)
 
-        # Dilakukan secara berulang hingga ditemukan hanya satu titik tengah yang menjadi hasil kurva bezier nantinya
+        # (pre-Divide) Dilakukan secara berulang hingga ditemukan hanya satu titik tengah yang menjadi hasil kurva bezier nantinya
         while len(new_points) > 1:
             new_points = self.list_center_point(new_points)
+            self.visualization_step(new_points)
             left_points.append(new_points[0])
             if len(new_points) == 1:
                 right_points.insert(0, new_points[0])
             else:
                 right_points.insert(0, new_points[len(new_points)-1])
 
-        # Melakukan rekursif setiap bagian kiri dan kanan, hingga iterasi habis
+        # (Divide) Melakukan rekursif setiap bagian kiri dan kanan, hingga iterasi habis
         left_curve = self.bezier_multipoint(left_points, iterations-1)
         right_curve = self.bezier_multipoint(right_points, iterations-1)
 
+        # (Combine) Gabungkan kurva dari kedua sisi dan hilangkan titik terakhir dari sisi kiri untuk menghindari duplikasi
         return left_curve[:-1] + right_curve # List of Point
     
     def multipoint_bezier(self):
         curve_points = self.bezier_multipoint(self.points, self.iterations)
-        return [[point.x, point.y] for point in curve_points] # Array dua dimensi
+        return curve_points # List of Point

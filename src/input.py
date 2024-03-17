@@ -1,3 +1,5 @@
+from datatypes import Point
+
 # Mendapatkan titik koordinat dari pengguna
 def getPoints(n):
     points = []
@@ -11,7 +13,8 @@ def getPoints(n):
                 continue
             try:
                 x, y = map(float, coords)
-                points.append((x, y))
+                point = Point(x,y)
+                points.append(point)
                 break 
             except ValueError:
                 print("Input tidak valid. Mohon pastikan kedua angka adalah bilangan float atau integer.")

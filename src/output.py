@@ -1,6 +1,6 @@
 # Menampilkan menu pilihan kepada pengguna
 def displayMenu():
-    print("======================== MENU =========================")
+    print("\n==================== MENU ====================")
     print("1. Quadratic Bézier Curve (Brute Force)")
     print("2. Quadratic Bézier Curve (Divide and Conquer)")
     print("3. Comparing Algorithm")
@@ -9,24 +9,25 @@ def displayMenu():
 
 # Menampilkan perbandingan waktu antara algoritma Brute Force dan Divide and Conquer
 def displayComparison(elapsed_time_bf, elapsed_time_dnc):
-    print("=============== Membandingkan Algoritma ===============")
+    print("\n========== Membandingkan Algoritma ===========")
     print("Brute Force")
     print("Elapsed time: {:.4e} seconds\n".format(elapsed_time_bf))
     
     print("Divide and Conquer")
     print("Elapsed time: {:.4e} seconds\n".format(elapsed_time_dnc))
 
+    print("=============================== Analisis ================================")
     if elapsed_time_bf < elapsed_time_dnc:
-        print("Pembentukan kurva Bézier kuadratik lebih cepat dengan Brute Force.")
+        print("Pembentukan kurva Bézier lebih cepat dengan Algoritma Brute Force.")
     elif elapsed_time_bf > elapsed_time_dnc:
-        print("Pembentukan kurva Bézier kuadratik lebih cepat dengan Divide and Conquer.")
+        print("Pembentukan kurva Bézier lebih cepat dengan Algoritma Divide and Conquer.")
     else:
         print("Waktu pembentukan kurva Bezier sama cepatnya dengan kedua metode.")
-    print("")
+    
 
 # Menampilkan jumlah total titik kontrol
 def displayTotalPoints(iterations):
-    print(f"Total points:{2**iterations+1}")
+    print(f"Total points: {2**iterations+1}\n")
 
 # Menampilkan waktu yang diperlukan untuk pembentukan kurva
 def displayElapsedTime(points, iterations, curve_method):

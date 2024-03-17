@@ -31,28 +31,27 @@ def getIteration():
         else:
             print("Jumlah iterasi harus lebih besar dari 1. Mohon masukkan nilai iterasi yang valid.")
 
-# Mendapatkan pilihan jenis kurva dari pengguna
+# Mendapatkan pilihan menu dari pengguna            
 def getChoice():
     while True:
-        choice = int(input("\nPilih menu (1/2/3/4): "))
+        choice = input("\nPilih menu (1/2/3/4): ")
         try:
+            choice = int(choice)
             if choice in [1, 2, 3, 4]:
                 return choice
             else:
                 print("Pilihan tidak valid. Silakan pilih antara 1, 2, 3, atau 4.")
         except ValueError:
-            print("Pilihan tidak valid. Silakan pilih antara 1, 2, 3, atau 4.")
+            print("Input tidak valid. Masukkan bilangan bulat antara 1 hingga 4.")
             
 # Mendapatkan input titik dan iterasi untuk kurva quadratic Bézier
 def getInputQuadratic():
-    '''
-    assaasas
-    '''
     points = getPoints(3)
     iterations = getIteration()
 
     return points, iterations
 
+# Mendapatkan input titik dan iterasi untuk kurva multipoint Bézier
 def getInputMultipoint():
     n = int(input("Jumlah titik yang akan dimasukkan: "))
     points = getPoints(n)

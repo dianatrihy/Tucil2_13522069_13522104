@@ -5,7 +5,7 @@ from datatypes import Point
 # Definisikan kelas quadraticBezierDnC
 
 class quadraticBezierDnC:
-     # Inisialisasi atribut dari objek quadraticBezierDnC
+    # Inisialisasi atribut dari objek quadraticBezierDnC
     def __init__(self, points, iterations):
         p0, p1, p2 = points
         self.p0 = Point(p0[0], p0[1])

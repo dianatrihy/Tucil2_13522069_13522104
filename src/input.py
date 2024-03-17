@@ -1,8 +1,8 @@
 # Mendapatkan titik koordinat dari pengguna
-def getPoints():
+def getPoints(n):
     points = []
     print("\nMasukkan titik koordinat dipisahkan dengan koma (,)")
-    for i in range(3):
+    for i in range(n):
         while True:
             point_input = input(f"Masukkan titik kontrol ke-{i+1} (P{i}): ")
             coords = point_input.split(',')
@@ -45,7 +45,14 @@ def getInputQuadratic():
     '''
     assaasas
     '''
-    points = getPoints()
+    points = getPoints(3)
+    iterations = getIteration()
+
+    return points, iterations
+
+def getInputMultipoint():
+    n = int(input("Jumlah titik yang akan dimasukkan: "))
+    points = getPoints(n)
     iterations = getIteration()
 
     return points, iterations

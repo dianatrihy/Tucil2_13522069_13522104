@@ -23,8 +23,8 @@ def main():
         output.displayTotalPoints(iterations)
         
     elif choice == 4:
-        # Handle Multi Bézier Curve
-        pass
+        curve_method = 'Divide and Conquer with Multipoint'
+        visualizer.plot_curve(curve_method)
     
     else:
         print("Pilihan tidak valid. Silakan pilih antara 1, 2, 3, atau 4.")

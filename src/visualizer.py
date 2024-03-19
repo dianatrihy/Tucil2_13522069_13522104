@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import time
 from quadraticBezierBF import quadraticBezierBF
-from quadraticBezierDnC import quadraticBezierDnC
+from quadraticBezierDncVis import quadraticBezierDnCVis
 from multipointBezierDnC import multipointBezierDnC
 from input import getInputQuadratic, getInputMultipoint
 
@@ -9,17 +9,20 @@ from input import getInputQuadratic, getInputMultipoint
 def plot_curve(curve_method):
     
     # Memilih metode pembentukan kurva Bézier berdasarkan pilihan pengguna
-    start_time = time.time()
+    # start_time = time.time()
     if curve_method == 'Brute Force':
         points, iterations = getInputQuadratic()
+        start_time = time.time()
         bezier_curve = quadraticBezierBF(points, iterations)  
         curve_points = bezier_curve.quadratic_bezier()
     elif curve_method == 'Divide and Conquer':
         points, iterations = getInputQuadratic()
-        bezier_curve = quadraticBezierDnC(points, iterations)  
+        start_time = time.time()
+        bezier_curve = quadraticBezierDnCVis(points, iterations)  
         curve_points = bezier_curve.quadratic_bezier()
     elif curve_method == 'Divide and Conquer with Multipoint':
         points, iterations = getInputMultipoint()
+        start_time = time.time()
         bezier_curve = multipointBezierDnC(points, iterations)
         curve_points = bezier_curve.multipoint_bezier()
     else:

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from datatypes import Point
 
 # Definisikan kelas quadraticBezierDnC
-class quadraticBezierDnC:
+class quadraticBezierDnCVis:
     # Inisialisasi atribut dari objek quadraticBezierDnC
     def __init__(self, points, iterations):
         self.p0 = points[0]
@@ -28,6 +28,9 @@ class quadraticBezierDnC:
         Q0 = self.find_center_point(P0, P1)
         Q1 = self.find_center_point(P1, P2)
         R0 = self.find_center_point(Q0, Q1)
+
+        plt.scatter([Q0.x, R0.x, Q1.x], [Q0.y, R0.y, Q1.y], color='orange', s=5.5, zorder=5)
+        plt.plot([Q0.x, R0.x, Q1.x], [Q0.y, R0.y, Q1.y], color='gold', linestyle='dashed')
         
         # (Divide and ) Rekursi untuk menemukan kurva di sisi kiri dan kanan
         left_curve = self.generate_quadratic_bezier(P0, Q0, R0, iterations - 1)

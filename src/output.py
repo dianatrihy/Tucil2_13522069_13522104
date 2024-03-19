@@ -18,11 +18,14 @@ def displayComparison(elapsed_time_bf, elapsed_time_dnc):
 
     print("=============================== Analisis ================================")
     if elapsed_time_bf < elapsed_time_dnc:
-        print("Pembentukan kurva Bézier lebih cepat dengan Algoritma Brute Force.")
+        print("Pembentukan kurva Bézier lebih cepat dengan Algoritma Brute Force dengan selisih waktu eksekusi: ")
+        print(elapsed_time_dnc - elapsed_time_bf)
     elif elapsed_time_bf > elapsed_time_dnc:
-        print("Pembentukan kurva Bézier lebih cepat dengan Algoritma Divide and Conquer.")
+        print("Pembentukan kurva Bézier lebih cepat dengan Algoritma Divide and Conquer dengan selisih waktu eksekusi")
+        print(elapsed_time_bf - elapsed_time_dnc)
     else:
         print("Waktu pembentukan kurva Bezier sama cepatnya dengan kedua metode.")
+
     
 
 # Menampilkan jumlah total titik kontrol

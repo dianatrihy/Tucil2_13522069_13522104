@@ -12,14 +12,18 @@ def plot_curve(curve_method):
     # Memilih metode pembentukan kurva Bézier berdasarkan pilihan pengguna
     if curve_method == 'Brute Force':
         points, iterations = getInputQuadratic()
+        start_time = time.time()
         bezier_curve = quadraticBezierBF(points, iterations)  
         curve_points = bezier_curve.quadratic_bezier()
+        end_time = time.time() 
+        elapsed_time = end_time - start_time
         
         # Menyiapkan plot untuk animasi
         fig, ax = plt.subplots()
         ax.set_xlabel('X-axis')
         ax.set_ylabel('Y-axis')
         ax.set_title(f'Quadratic Bézier Curve with {bezier_curve.iterations} Iteration {curve_method}')
+        plt.text(0.5, 0.05, 'Elapsed time: {:.4e} seconds'.format(elapsed_time), horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
         
         # Inisialisasi plot untuk animasi
         curve_lines = []
@@ -47,10 +51,15 @@ def plot_curve(curve_method):
                     y_data = [curve_points[i].y, curve_points[i+1].y]
                     curve_lines[i].set_data(x_data, y_data)
             return curve_lines
-
+        
+        # Menampilkan kurva Bézier dan titik kontrolnya
+        x_curve = [point.x for point in curve_points]
+        y_curve = [point.y for point in curve_points]
+        plt.scatter(x_curve, y_curve, color='blue', s=8, zorder=5)
+        
         # Menampilkan animasi
         ani = FuncAnimation(fig, update, frames=len(curve_points), init_func=init, blit=True, repeat=False)
-        
+
         # Menampilkan grid
         ax.grid(True)
         plt.show()
